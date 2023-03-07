@@ -52,7 +52,15 @@ public:
 
      QSqlQueryModel *DisplayEventManagerIDsOnComboBox();
 
-     bool generatePDFevent();
+
+      QSqlQueryModel *DisplayEventsTableByEventName();
+
+      QSqlQueryModel *DisplayEventsTableByNumberOfParticipents();
+
+      QSqlQueryModel *DisplayEventsTableByEventID();
+
+
+
 
 
 
