@@ -268,7 +268,7 @@ bool EventsManagement::SearchEvent(int id, EventsManagement *E)
  QSqlQueryModel *EventsManagement::DisplayEventsTableByEventID()
  {
      QSqlQueryModel *model = new QSqlQueryModel();
-           model->setQuery("select * from Event ORDER BY Participant_Nbr");
+           model->setQuery("select * from Event ORDER BY Event_Id");
            model->setHeaderData(0,Qt::Horizontal,QObject::tr("Event ID"));
            model->setHeaderData(1,Qt::Horizontal,QObject::tr("Event Name"));
            model->setHeaderData(2,Qt::Horizontal,QObject::tr("Event Description"));
@@ -279,6 +279,29 @@ bool EventsManagement::SearchEvent(int id, EventsManagement *E)
            model->setHeaderData(7,Qt::Horizontal,QObject::tr("Event Manager ID"));
 
              return model;
+
+ }
+
+ QSqlQueryModel *EventsManagement::DisplayEventsSearchByEventID(int event_id)
+ {
+
+     QSqlQueryModel *model = new QSqlQueryModel();
+         model->setHeaderData(0, Qt::Horizontal, QObject::tr("Event ID"));
+         model->setHeaderData(1, Qt::Horizontal, QObject::tr("Event Name"));
+         model->setHeaderData(2, Qt::Horizontal, QObject::tr("Event Description"));
+         model->setHeaderData(3, Qt::Horizontal, QObject::tr("Begin Date"));
+         model->setHeaderData(4, Qt::Horizontal, QObject::tr("End Date"));
+         model->setHeaderData(5, Qt::Horizontal, QObject::tr("Participants Number"));
+         model->setHeaderData(6, Qt::Horizontal, QObject::tr("Event Address"));
+         model->setHeaderData(7, Qt::Horizontal, QObject::tr("Event Manager ID"));
+
+         QSqlQuery query;
+         query.prepare("SELECT * FROM Event WHERE Event_Id = :id");
+         query.bindValue(":id", event_id);
+         query.exec();
+         model->setQuery(query);
+
+         return model;
 
  }
 
