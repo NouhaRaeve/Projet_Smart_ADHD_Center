@@ -59,6 +59,8 @@ public:
 
       QSqlQueryModel *DisplayEventsTableByEventID();
 
+      QSqlQueryModel *DisplayEventsSearchByEventID(int event_id);
+
 
 
 
