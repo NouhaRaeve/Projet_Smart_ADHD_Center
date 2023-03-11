@@ -1,0 +1,54 @@
+<RCC>
+    <qresource prefix="/new/images">
+        <file>src/brainwave.png</file>
+        <file>src/abc.webp</file>
+        <file>src/brainwave logo.png</file>
+        <file>src/loginicon.png</file>
+        <file>src/signupicon.png</file>
+        <file>src/Employee.png</file>
+        <file>src/calendar.png</file>
+        <file>src/event.png</file>
+        <file>src/patient.png</file>
+        <file>src/treatment.png</file>
+        <file>src/staff.png</file>
+        <file>src/addstaff.png</file>
+        <file>src/statistics.png</file>
+        <file>src/cal.png</file>
+        <file>src/addevent.png</file>
+        <file>src/listappoint.png</file>
+        <file>src/patientlist.png</file>
+        <file>src/treatmentlist.png</file>
+        <file>src/addPatient.png</file>
+        <file>src/addtreat.png</file>
+        <file>src/add-event.png</file>
+        <file>src/listevent.png</file>
+        <file>src/arrow-down.png</file>
+        <file>src/seachEmployee.png</file>
+        <file>src/PDFicon.png</file>
+        <file>src/excel-icon.png</file>
+        <file>src/searchPatient.png</file>
+        <file>src/id-card.png</file>
+        <file>src/patient-form.png</file>
+        <file>src/upload-image.png</file>
+        <file>src/appointment-form.png</file>
+        <file>src/search-therapy.png</file>
+        <file>src/treaatment-form.png</file>
+        <file>src/event-form.png</file>
+        <file>src/birthday.png</file>
+        <file>src/user-interface.png</file>
+        <file>src/qr-code.png</file>
+        <file>src/report.png</file>
+        <file>src/history.png</file>
+        <file>src/delete.png</file>
+        <file>src/updated.png</file>
+        <file>src/employe_update.png</file>
+        <file>src/update2.png</file>
+        <file>src/appointmentup.png</file>
+        <file>src/best-employee.png</file>
+        <file>src/businessman.png</file>
+        <file>src/health-insurance.png</file>
+        <file>src/star.png</file>
+        <file>src/plus.png</file>
+        <file>src/send.png</file>
+    </qresource>
+</RCC>
