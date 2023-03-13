@@ -4,7 +4,7 @@ struct MonthData {
     int events;
     int participants;
 };
-
+#include <QColor>
 
 
 
@@ -314,6 +314,8 @@ bool EventsManagement::SearchEvent(int id, EventsManagement *E)
 
 QChartView * EventsManagement::statsevent()
 {
+
+
     QSqlQuery query;
 
     // Create an array of MonthData objects
@@ -327,35 +329,49 @@ QChartView * EventsManagement::statsevent()
 
     query.prepare("SELECT * FROM Event");
 
-    if (query.exec()) {
-        while (query.next()) {
+    if (query.exec())
+    {
+        while (query.next())
+        {
             QString dateString = query.value(3).toString();
             QDate date = QDate::fromString(dateString, "dd-MM-yyyy");
-            int month = date.month() - 1; // Subtract 1 to get 0-based index
+            int month = date.month() - 1;
 
             // Increment the events and participants for the corresponding month
             monthData[month].events++;
             monthData[month].participants += query.value(5).toInt();
         }
-    } else {
+    } else
+    {
         // handle error
     }
-
     // Create the chart
     QChart *chart = new QChart();
 
-    // Create the bar series
-    QBarSeries *series = new QBarSeries();
+
+
+
+
+
+    // Create the horizontal bar series
+    QHorizontalBarSeries *series = new QHorizontalBarSeries();
+    series->setLabelsVisible(true);
+
+
+
+
+    series->setLabelsPosition(QAbstractBarSeries::LabelsOutsideEnd);
+
 
     // Create the sets for the bars
     QBarSet *participants = new QBarSet("Participants");
     QBarSet *events = new QBarSet("Events");
 
-
     // Set the values for the sets
-    for (int i = 0; i < 12; i++) {
+    for (int i = 11; i >= 0; i--) {
         participants->append(monthData[i].participants);
         events->append(monthData[i].events);
+
     }
 
     // Set the colors for the sets
@@ -365,6 +381,11 @@ QChartView * EventsManagement::statsevent()
     participants->setColor(participantsColor);
     events->setColor(eventsColor);
 
+    QBrush participantsBrush(Qt::black);
+    participants->setLabelBrush(participantsBrush);
+    QBrush EvetnsBrush(Qt::black);
+    events->setLabelBrush(EvetnsBrush);
+
     // Add the sets to the series
     series->append(participants);
     series->append(events);
@@ -373,27 +394,26 @@ QChartView * EventsManagement::statsevent()
     chart->addSeries(series);
 
     // Set the chart title
-    chart->setTitle("Participants and Events by Month");
+    chart->setTitle("Tolal Number Of Participants and Events by Month");
 
+    // Set the Y-axis categories
+    QBarCategoryAxis *axisY = new QBarCategoryAxis();
+    axisY->append("December");
+    axisY->append("November");
+    axisY->append("October");
+    axisY->append("September");
+    axisY->append("August");
+    axisY->append("July");
+    axisY->append("June");
+    axisY->append("May");
+    axisY->append("April");
+    axisY->append("March");
+    axisY->append("February");
+    axisY->append("January");
+    chart->addAxis(axisY, Qt::AlignLeft);
+    series->attachAxis(axisY);
 
-    // Set the X-axis categories
-    QBarCategoryAxis *axisX = new QBarCategoryAxis();
-    axisX->append("January");
-    axisX->append("February");
-    axisX->append("March");
-    axisX->append("April");
-    axisX->append("May");
-    axisX->append("June");
-    axisX->append("July");
-    axisX->append("August");
-    axisX->append("September");
-    axisX->append("October");
-    axisX->append("November");
-    axisX->append("December");
-    chart->addAxis(axisX, Qt::AlignBottom);
-    series->attachAxis(axisX);
-
-    // Set the Y-axis range
+    // Set the X-axis range
     int minParticipants = INT_MAX;
     int maxParticipants = INT_MIN;
     int minEvents = INT_MAX;
@@ -405,19 +425,21 @@ QChartView * EventsManagement::statsevent()
         maxEvents = qMax(maxEvents, monthData[i].events);
     }
 
-    QValueAxis *axisY = new QValueAxis();
 
-    axisY->setRange(qMin(minParticipants, minEvents), qMax(maxParticipants, maxEvents));
-    chart->addAxis(axisY, Qt::AlignLeft);
-    series->attachAxis(axisY);
-    series->setBarWidth(1);
+    // Create the value axis for the X-axis
+    QValueAxis *axisX = new QValueAxis();
+    axisX->setRange(0, qMax(maxParticipants, maxEvents)+10);
+    axisX->setTickCount(6);
+    axisX->setLabelFormat("%d");
+    chart->addAxis(axisX, Qt::AlignBottom);
+    series->attachAxis(axisX);
 
-
-    // Create the chart view and set the chart
+    // Create the chart view
     QChartView *chartView = new QChartView(chart);
     chartView->setRenderHint(QPainter::Antialiasing);
-
     return chartView;
+
+
 
 
 }
